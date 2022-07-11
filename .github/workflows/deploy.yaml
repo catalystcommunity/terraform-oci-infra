@@ -1,0 +1,27 @@
+name: Deploy
+on: # only trigger on prs to main closed
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main-disabled
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true # only deploy on merged PRs
+    strategy:
+      matrix:
+        environment:
+          - nonprod
+          - common
+    name: Apply ${{ matrix.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply
+        uses: catalystsquad/action-terraform@v1
+        with:
+          command: apply
+          work-dir: ${{ matrix.environment }}
+          provider: aws
+          aws-region: us-west-2
+          aws-access-key-id: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}

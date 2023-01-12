@@ -3,8 +3,8 @@ terraform {
 
   required_providers {
     oci = {
-      source  = "oracle/oci"
-      version = "~> 4.0"
+      source  = "hashicorp/oci"
+      version = ">= 4.0.0"
     }
     # kubernetes = {
     #   source  = "hashicorp/kubernetes"
@@ -29,19 +29,19 @@ locals {
 #     "--role-arn", local.aws_provider_assume_role_arn,
 #   ]
 
-  compartment_ocid = "ocid1.tenancy.oc1..aaaaaaaa23mqlgnngz7nefy2jpbmwfnzrvtzqthpqmh4u3ssim5up547uchq"
-  user_ocid = "ocid1.user.oc1..aaaaaaaatefv4vvgdagearf2ewkzz3pvm64gs3qhtecaxaqbdi6zin42zzca" 
+  compartment_ocid = "ocid1.tenancy.oc1..aaaaaaaafnc4ezkn7qo5neppywgy6hxgxyi7fgsjxo5n5e2wgxh7hviwh26a"
+  user_ocid = "ocid1.user.oc1..aaaaaaaa36urghdanx4ppp2krccywzye6vvwpr4axyftbuwzr6jliu2ukmwa"
 
-  global_tags = {
-    "env" = "nonprod"
-  }
+#  global_tags = {
+#    "env" = "nonprod"
+#  }
 }
 
 provider "oci" {
   tenancy_ocid = local.compartment_ocid
   user_ocid = local.user_ocid
-  private_key_path = "/home/todhansmann/.oci/root.pem"
-  fingerprint = "8d:d6:ad:26:08:b4:9e:e7:75:37:3a:c3:93:88:8b:8d"
+  private_key_path = "/home/todhansmann/.oci/pjnp.pem"
+  fingerprint = "d1:0f:57:3b:25:37:2f:86:ec:7f:ff:69:f5:1a:01:11"
   region = "us-phoenix-1"
 }
 

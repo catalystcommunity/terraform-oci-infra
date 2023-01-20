@@ -12,19 +12,19 @@ output "security_list_id" {
 
 output "subnet_names" {
   value = [
-    for subnet in oci_core_subnet.platform_subnets: subnet.display_name
+    for subnet in oci_core_subnet.platform_subnets : subnet.display_name
   ]
 }
 
 output "subnet_ids" {
   value = [
-    for subnet in oci_core_subnet.platform_subnets: subnet.id
+    for subnet in oci_core_subnet.platform_subnets : subnet.id
   ]
 }
 
 output "subnet_dns_labels" {
   value = [
-    for subnet in oci_core_subnet.platform_subnets: subnet.dns_label
+    for subnet in oci_core_subnet.platform_subnets : subnet.dns_label
   ]
 }
 

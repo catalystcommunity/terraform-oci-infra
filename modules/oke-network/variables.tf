@@ -5,13 +5,13 @@ variable "compartment_id" {
 }
 
 variable "vcn_cidr_blocks" {
-  type        = list(string)
-  default     = [
-      "10.20.0.0/16",
-      "10.21.0.0/16",
-      "10.22.0.0/16",
-      "10.23.0.0/16",
-    ]
+  type = list(string)
+  default = [
+    "10.20.0.0/16",
+    "10.21.0.0/16",
+    "10.22.0.0/16",
+    "10.23.0.0/16",
+  ]
   description = "The network address space for this vcn. At least 4 are required. Ignore this unless you absolutely can not"
 }
 
@@ -23,8 +23,8 @@ variable "infra_set_name" {
 
 # Tags! Will be merged with other tags and shoved in freeform tags
 variable "global_freeform_tags" {
-  type        = map(string)
-  default     = {
+  type = map(string)
+  default = {
     "infra_from" = "Catalyst Platform"
   }
   description = "Tags that get applied to all resources created in the module"

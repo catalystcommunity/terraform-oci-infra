@@ -52,8 +52,8 @@ variable "boot_volume_gbs" {
 
 # Tags! Will be merged with other tags and shoved in freeform tags
 variable "global_freeform_tags" {
-  type        = map(string)
-  default     = {
+  type = map(string)
+  default = {
     "infra_from" = "Catalyst Platform"
   }
   description = "Tags that get applied to all resources created in the module"

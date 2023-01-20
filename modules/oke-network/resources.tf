@@ -72,15 +72,14 @@ resource "oci_core_nat_gateway" "platform_nat_gateway" {
   freeform_tags  = merge(var.global_freeform_tags, {})
 }
 
-resource "oci_core_service_gateway" "platform_service_gateway" {
-  count          = 0
-  compartment_id = var.compartment_id
-  vcn_id         = oci_core_vcn.platform_vcn.id
-
-  route_table_id = oci_core_route_table.platform_rt.id
-  display_name   = "${var.infra_set_name}_service_gateway"
-  freeform_tags  = merge(var.global_freeform_tags, {})
-}
+#resource "oci_core_service_gateway" "platform_service_gateway" {
+#  compartment_id = var.compartment_id
+#  vcn_id         = oci_core_vcn.platform_vcn.id
+#
+#  route_table_id = oci_core_route_table.platform_rt.id
+#  display_name   = "${var.infra_set_name}_service_gateway"
+#  freeform_tags  = merge(var.global_freeform_tags, {})
+#}
 
 resource "oci_core_network_security_group" "platform_nsg" {
   compartment_id = var.compartment_id

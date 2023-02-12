@@ -29,11 +29,15 @@ resource "oci_containerengine_cluster" "platform_cluster" {
   }
   freeform_tags = merge(var.global_freeform_tags, {})
   cluster_pod_network_options {
-    cni_type = "OCI_VCN_IP_NATIVE"
+    cni_type = "FLANNEL_OVERLAY"
+    #cni_type = "OCI_VCN_IP_NATIVE"
   }
   options {
     persistent_volume_config {
       freeform_tags = merge(var.global_freeform_tags, {})
+    }
+    kubernetes_network_config {
+      services_cidr = var.service_subnet_cidr
     }
     service_lb_config {
       freeform_tags = merge(var.global_freeform_tags, {})
@@ -57,17 +61,19 @@ resource "oci_containerengine_node_pool" "platform_nodepool_a" {
   node_config_details {
     placement_configs {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-      subnet_id           = var.regional_subnet_a_id
+      subnet_id           = var.nodepool_a_subnet_ids[0]
     }
     size = 1
 
     is_pv_encryption_in_transit_enabled = true
     freeform_tags                       = merge(var.global_freeform_tags, {})
     node_pool_pod_network_option_details {
-      cni_type          = "OCI_VCN_IP_NATIVE"
-      max_pods_per_node = var.node_max_pods
-      pod_nsg_ids       = ["${var.nsg_id}"]
-      pod_subnet_ids    = var.nodepool_a_subnet_ids
+      #cni_type          = "OCI_VCN_IP_NATIVE"
+      cni_type = "FLANNEL_OVERLAY"
+      #max_pods_per_node = var.node_max_pods
+      #pod_nsg_ids       = ["${var.nsg_id}"]
+      pod_nsg_ids = []
+      #pod_subnet_ids    = var.nodepool_a_subnet_ids
     }
   }
   node_source_details {
@@ -94,17 +100,19 @@ resource "oci_containerengine_node_pool" "platform_nodepool_b" {
   node_config_details {
     placement_configs {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
-      subnet_id           = var.regional_subnet_b_id
+      subnet_id           = var.nodepool_b_subnet_ids[0]
     }
     size = 1
 
     is_pv_encryption_in_transit_enabled = true
     freeform_tags                       = merge(var.global_freeform_tags, {})
     node_pool_pod_network_option_details {
-      cni_type          = "OCI_VCN_IP_NATIVE"
-      max_pods_per_node = var.node_max_pods
-      pod_nsg_ids       = ["${var.nsg_id}"]
-      pod_subnet_ids    = var.nodepool_b_subnet_ids
+      #cni_type          = "OCI_VCN_IP_NATIVE"
+      cni_type = "FLANNEL_OVERLAY"
+      #max_pods_per_node = var.node_max_pods
+      #pod_nsg_ids       = ["${var.nsg_id}"]
+      pod_nsg_ids = []
+      #pod_subnet_ids    = var.nodepool_b_subnet_ids
     }
   }
   node_source_details {

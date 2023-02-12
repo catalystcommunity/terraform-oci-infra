@@ -10,22 +10,24 @@ output "security_list_id" {
   value = oci_core_security_list.platform_sl.id
 }
 
-output "subnet_names" {
-  value = [
-    for subnet in oci_core_subnet.platform_subnets : subnet.display_name
-  ]
+output "public_subnet_a_id" {
+  value = oci_core_subnet.platform_public_subnet_a.id
 }
 
-output "subnet_ids" {
-  value = [
-    for subnet in oci_core_subnet.platform_subnets : subnet.id
-  ]
+output "public_subnet_b_id" {
+  value = oci_core_subnet.platform_public_subnet_b.id
 }
 
-output "subnet_dns_labels" {
-  value = [
-    for subnet in oci_core_subnet.platform_subnets : subnet.dns_label
-  ]
+output "public_regional_subnet_id" {
+  value = oci_core_subnet.platform_public_regional_subnet.id
+}
+
+output "private_subnet_a_id" {
+  value = oci_core_subnet.platform_private_subnet_a.id
+}
+
+output "private_subnet_b_id" {
+  value = oci_core_subnet.platform_private_subnet_b.id
 }
 
 output "internet_gateway_id" {
@@ -34,6 +36,10 @@ output "internet_gateway_id" {
 
 output "route_table_id" {
   value = oci_core_route_table.platform_rt.id
+}
+
+output "route_table_nat_id" {
+  value = oci_core_route_table.platform_nat_rt.id
 }
 
 output "network_security_group_id" {

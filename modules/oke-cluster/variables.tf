@@ -32,7 +32,7 @@ variable "node_memory_gbs" {
 
 variable "node_ocpus" {
   type        = number
-  default     = 1
+  default     = 2
   description = "The number of ocpus per node."
 }
 
@@ -73,6 +73,12 @@ variable "nsg_id" {
   description = "The id of the nsg for the cluster and nodepools."
 }
 
+variable "service_subnet_cidr" {
+  type        = string
+  nullable    = false
+  description = "The subnet cidr for services to be put in."
+}
+
 variable "public_subnet_id" {
   type        = string
   nullable    = false
@@ -85,11 +91,11 @@ variable "loadbalancer_subnet_ids" {
   description = "A list of one or more subnet ids to put load balancers in. This must be public, and different from the nodepool subnet list members."
 }
 
-variable "regional_subnet_a_id" {
-  type        = string
-  nullable    = false
-  description = "The subnet id for nodepool b placement config. This is seemingly ignored, but needed. More testing necessary."
-}
+#variable "public_subnet_a_id" {
+#  type        = string
+#  nullable    = false
+#  description = "The subnet id for nodepool b placement config. This is seemingly ignored, but needed. More testing necessary."
+#}
 
 variable "nodepool_a_subnet_ids" {
   type        = list(string)
@@ -97,11 +103,11 @@ variable "nodepool_a_subnet_ids" {
   description = "A list of subnet ids for pods to be placed in for nodepool b. All should be regional. It can be a list of one, but all items must be different than load_balancer_subnet_ids"
 }
 
-variable "regional_subnet_b_id" {
-  type        = string
-  nullable    = false
-  description = "The subnet id for nodepool b placement config. This is seemingly ignored, but needed. More testing necessary."
-}
+#variable "public_subnet_b_id" {
+#  type        = string
+#  nullable    = false
+#  description = "The subnet id for nodepool b placement config. This is seemingly ignored, but needed. More testing necessary."
+#}
 
 variable "nodepool_b_subnet_ids" {
   type        = list(string)

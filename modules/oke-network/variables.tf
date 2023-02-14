@@ -11,8 +11,27 @@ variable "vcn_cidr_blocks" {
     "10.21.0.0/16",
     "10.22.0.0/16",
     "10.23.0.0/16",
+    "10.25.0.0/16",
   ]
   description = "The network address space for this vcn. At least 4 are required. Ignore this unless you absolutely can not"
+}
+
+variable "public_cidr_blocks" {
+  type = list(string)
+  default = [
+    "10.20.0.0/16",
+    "10.21.0.0/16",
+  ]
+  description = "Two public subnets that fit in the CIDR blocks for the VCN. Ignore unless you are super knowing."
+}
+
+variable "private_cidr_blocks" {
+  type = list(string)
+  default = [
+    "10.22.0.0/16",
+    "10.23.0.0/16",
+  ]
+  description = "Two private subnets that fit in the CIDR blocks for the VCN. Ignore unless you are super knowing."
 }
 
 variable "infra_set_name" {

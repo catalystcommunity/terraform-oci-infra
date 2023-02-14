@@ -1,7 +1,6 @@
-# terraform-aws-platform
+# terraform-oci-platform
 
-This repo contains a terraform implementation of all AWS cloud resources
-required for operating Kubernetes.
+This repo contains a terraform implementation of all Oracle Cloud resources required for a barebones Kubernetes cluster ready for the Catalyst Platform Services
 
 
 # For Linkerd CA creation
@@ -29,3 +28,24 @@ openssl x509 \
     -out issuer.crt
 rm issuer.csr
 ```
+
+# Caveats
+
+You will need to separately deploy the bootstrap module at:
+`catalystsquad/catalyst-cluster-bootstrap/kubernetes`
+
+This will require a secrets to be created manually and then used something like the following
+
+```terraform
+ # manage secrets for this environment via oci secrets manager for secret
+ # versioning and oci access control over secrets
+ data "oci_secrets_secretbundle" "platform_secrets" {
+   secret_id = var.platform_secret_ocid
+ }
+
+ locals {                                                                                                                 12   environment_name = "everything"                                                                                        11   secrets = sensitive(                                                                                                   10     jsondecode(                                                                                                           9       base64decode(                                                                                                       8         data.oci_secrets_secretbundle.platform_secrets.secret_bundle_content.0.content                                    7       )
+     )
+   )
+ }
+```
+

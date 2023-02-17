@@ -1,4 +1,4 @@
-variable "compartment_id" {
+variable "compartment_ocid" {
   type        = string
   nullable    = false
   description = "The compartment this infrastructure will be part of, can be a tenant ocid for root compartment"

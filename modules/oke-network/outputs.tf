@@ -3,7 +3,7 @@ output "vcn_id" {
 }
 
 output "compartment_id" {
-  value = var.compartment_id
+  value = var.compartment_ocid
 }
 
 output "security_list_id" {

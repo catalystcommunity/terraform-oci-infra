@@ -2,13 +2,13 @@
 module "network" {
   source = "../oke-network"
 
-  compartment_id = var.compartment_ocid
+  compartment_ocid = var.compartment_ocid
 }
 
 module "cluster" {
   source = "../oke-cluster"
 
-  compartment_id     = var.compartment_ocid
+  compartment_ocid   = var.compartment_ocid
   kubernetes_version = var.kubernetes_version
 
   global_freeform_tags    = var.global_freeform_tags
@@ -29,13 +29,13 @@ module "cluster" {
 }
 
 data "oci_objectstorage_namespace" "bucket_namespace" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
 }
 
 resource "oci_objectstorage_bucket" "platform_metrics_bucket" {
   compartment_id = var.compartment_ocid
   name           = "${var.infra_set_name}_catalyst_metrics_bucket"
-  namespace      = data.oci_objectstorage_bucket.namespace
+  namespace      = data.oci_objectstorage_namespace.bucket_namespace.namespace
 }
 
 resource "oci_identity_user" "platform_metrics_bucket_user" {

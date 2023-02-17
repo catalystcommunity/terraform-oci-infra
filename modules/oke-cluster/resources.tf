@@ -4,7 +4,7 @@ data "oci_containerengine_node_pool_option" "node_pool_option" {
 }
 
 data "oci_identity_availability_domains" "ads" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
 }
 
 locals {
@@ -18,7 +18,7 @@ locals {
 }
 
 resource "oci_containerengine_cluster" "platform_cluster" {
-  compartment_id     = var.compartment_id
+  compartment_id     = var.compartment_ocid
   kubernetes_version = join("", ["v", var.kubernetes_version])
   name               = "${var.infra_set_name}_oke"
   vcn_id             = var.vcn_id
@@ -48,7 +48,7 @@ resource "oci_containerengine_cluster" "platform_cluster" {
 
 resource "oci_containerengine_node_pool" "platform_nodepool_a" {
   cluster_id         = oci_containerengine_cluster.platform_cluster.id
-  compartment_id     = var.compartment_id
+  compartment_id     = var.compartment_ocid
   name               = "${var.infra_set_name}_nodepool_a"
   node_shape         = var.node_shape
   kubernetes_version = oci_containerengine_cluster.platform_cluster.kubernetes_version
@@ -87,7 +87,7 @@ resource "oci_containerengine_node_pool" "platform_nodepool_a" {
 
 resource "oci_containerengine_node_pool" "platform_nodepool_b" {
   cluster_id         = oci_containerengine_cluster.platform_cluster.id
-  compartment_id     = var.compartment_id
+  compartment_id     = var.compartment_ocid
   name               = "${var.infra_set_name}_nodepool_b"
   node_shape         = var.node_shape
   kubernetes_version = oci_containerengine_cluster.platform_cluster.kubernetes_version

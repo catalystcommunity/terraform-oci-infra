@@ -1,10 +1,10 @@
 data "oci_identity_availability_domains" "ads" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
 }
 
 resource "oci_core_vcn" "platform_vcn" {
   #Required
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
 
   cidr_blocks   = var.vcn_cidr_blocks
   display_name  = "${var.infra_set_name}_vcn"
@@ -13,7 +13,7 @@ resource "oci_core_vcn" "platform_vcn" {
 }
 
 resource "oci_core_security_list" "platform_sl" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
 
   egress_security_rules {
@@ -33,7 +33,7 @@ resource "oci_core_security_list" "platform_sl" {
 }
 
 resource "oci_core_network_security_group" "platform_nsg" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
   display_name   = "${var.infra_set_name}_nsg"
 }
@@ -49,7 +49,7 @@ data "oci_core_services" "all_oci_services" {
 
 resource "oci_core_subnet" "platform_public_subnet_a" {
   cidr_block          = var.public_cidr_blocks[0]
-  compartment_id      = var.compartment_id
+  compartment_id      = var.compartment_ocid
   vcn_id              = oci_core_vcn.platform_vcn.id
   security_list_ids   = ["${oci_core_security_list.platform_sl.id}"]
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -60,7 +60,7 @@ resource "oci_core_subnet" "platform_public_subnet_a" {
 
 resource "oci_core_subnet" "platform_public_subnet_b" {
   cidr_block          = var.public_cidr_blocks[1]
-  compartment_id      = var.compartment_id
+  compartment_id      = var.compartment_ocid
   vcn_id              = oci_core_vcn.platform_vcn.id
   security_list_ids   = ["${oci_core_security_list.platform_sl.id}"]
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
@@ -71,7 +71,7 @@ resource "oci_core_subnet" "platform_public_subnet_b" {
 
 resource "oci_core_subnet" "platform_public_regional_subnet" {
   cidr_block        = var.vcn_cidr_blocks[4]
-  compartment_id    = var.compartment_id
+  compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.platform_vcn.id
   security_list_ids = ["${oci_core_security_list.platform_sl.id}"]
   #Make regional subnet
@@ -83,7 +83,7 @@ resource "oci_core_subnet" "platform_public_regional_subnet" {
 
 resource "oci_core_subnet" "platform_private_subnet_a" {
   cidr_block                 = var.private_cidr_blocks[0]
-  compartment_id             = var.compartment_id
+  compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.platform_vcn.id
   security_list_ids          = ["${oci_core_security_list.platform_sl.id}"]
   availability_domain        = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -95,7 +95,7 @@ resource "oci_core_subnet" "platform_private_subnet_a" {
 
 resource "oci_core_subnet" "platform_private_subnet_b" {
   cidr_block                 = var.private_cidr_blocks[1]
-  compartment_id             = var.compartment_id
+  compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.platform_vcn.id
   security_list_ids          = ["${oci_core_security_list.platform_sl.id}"]
   availability_domain        = data.oci_identity_availability_domains.ads.availability_domains[1].name
@@ -106,7 +106,7 @@ resource "oci_core_subnet" "platform_private_subnet_b" {
 }
 
 resource "oci_core_internet_gateway" "platform_internet_gateway" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
   display_name   = "${var.infra_set_name}_ig"
   enabled        = true
@@ -115,7 +115,7 @@ resource "oci_core_internet_gateway" "platform_internet_gateway" {
 }
 
 resource "oci_core_route_table" "platform_rt" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
 
   route_rules {
@@ -128,7 +128,7 @@ resource "oci_core_route_table" "platform_rt" {
 }
 
 resource "oci_core_route_table" "platform_nat_rt" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
 
   route_rules {
@@ -141,7 +141,7 @@ resource "oci_core_route_table" "platform_nat_rt" {
 }
 
 resource "oci_core_nat_gateway" "platform_nat_gateway" {
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.platform_vcn.id
 
   #route_table_id = oci_core_route_table.platform_nat_rt.id

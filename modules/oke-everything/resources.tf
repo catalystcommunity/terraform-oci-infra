@@ -41,7 +41,7 @@ resource "oci_objectstorage_bucket" "platform_metrics_bucket" {
 resource "oci_identity_user" "platform_metrics_bucket_user" {
   compartment_id = var.compartment_ocid
   name           = "${var.infra_set_name}_catalyst_metrics_bucket_user"
-  email          = "tod+${var.infra_set_name}@phonejanitor.com"
+  email          = "${var.infra_email}"
   description    = "User to access the ${var.infra_set_name}_catalyst_metrics_bucket_user"
   freeform_tags  = merge(var.global_freeform_tags, {})
 }

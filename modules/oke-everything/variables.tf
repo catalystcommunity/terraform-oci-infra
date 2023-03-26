@@ -16,6 +16,11 @@ variable "infra_set_name" {
   description = "The name we apply to resources. Can be ignored for single-cluster setups."
 }
 
+variable "infra_email" {
+  type        = string
+  description = "The email for infra users such as the metrics bucket user"
+}
+
 # Node VM attributes, uniform because this is a simple example. If you need customization, just copy this module and 
 # start augmenting, but then why are you using OCI? You're ready for a better cloud.
 variable "node_shape" {

@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Apply
-        uses: catalystsquad/action-terraform@v1
+        uses: catalystcommunity/action-terraform@v1
         with:
           command: apply
           work-dir: ${{ matrix.environment }}

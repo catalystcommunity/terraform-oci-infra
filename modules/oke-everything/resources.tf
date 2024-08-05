@@ -129,4 +129,4 @@ resource "kubernetes_secret_v1" "metrics_bucket_namespace_secrets" {
 }
 
 # If successful, this should be ready for the module at:
-# catalystsquad/catalyst-cluster-bootstrap/kubernetes
+# catalystcommunity/catalyst-cluster-bootstrap/kubernetes

@@ -32,7 +32,7 @@ rm issuer.csr
 # Caveats
 
 You will need to separately deploy the bootstrap module at:
-`catalystsquad/catalyst-cluster-bootstrap/kubernetes`
+`catalystcommunity/catalyst-cluster-bootstrap/kubernetes`
 
 This will require a secrets to be created manually and then used something like the following
 
